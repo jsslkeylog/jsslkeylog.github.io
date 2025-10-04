@@ -19,14 +19,14 @@ p {
 <a class="github-fork-ribbon" href="https://github.com/jsslkeylog/jsslkeylog" title="Fork me on GitHub">Fork me on GitHub</a>
 <h1 style="margin-right: 5em">jSSLKeyLog - Java Agent Library to log SSL session keys to a file for Wireshark</h1>
 
-<p style="margin-right: 5em"><i>&copy; 2012, 2014, 2017, 2018, 2020 Michael Schierl, <tt>&lt;schierlm at
+<p style="margin-right: 5em"><i>&copy; 2012, 2014, 2017, 2018, 2020, 2025 Michael Schierl, <tt>&lt;schierlm at
 gmx dot de&gt;</tt></i></p>
 
 <h2>Download</h2>
 
 <h3>Main program</h3>
-<p><b><a href="https://github.com/jsslkeylog/jsslkeylog/releases/download/v1.3.0/jSSLKeyLog-1.3.zip">Download jSSLKeyLog 1.3</a> (140 KB)</b></p>
-<p><a href="https://github.com/jsslkeylog/jsslkeylog/archive/v1.3.0.zip">Download jSSLKeyLog 1.3 source code</a> (26 KB)</p>
+<p><b><a href="https://github.com/jsslkeylog/jsslkeylog/releases/download/v1.4.0/jSSLKeyLog-1.4.zip">Download jSSLKeyLog 1.4</a> (167 KB)</b></p>
+<p><a href="https://github.com/jsslkeylog/jsslkeylog/releases/download/v1.4.0/jSSLKeyLog-1.4-src.zip">Download jSSLKeyLog 1.4 source code</a> (44 KB)</p>
 
 <h2>Introduction</h2>
 
@@ -42,8 +42,13 @@ encrypted. It works with both Java server and client software.</p>
 <p>A Java Runtime environment 1.7 or above is needed. You can get it
 from <a href="https://java.com/">Java.com</a>. In case you want to use it with Java 1.5
 or 1.6, use version 1.1 of this program instead. The agent library was
-tested with Java 1.7 to 15; as it accesses internal API directly,
-it might not work in more recent versions without updating.</p>
+tested with Java 1.7 to 25; as it accesses internal API directly,
+it will likely not work in more recent versions without updating.</p>
+
+<p>As of jSSLKeyLog 1.4, a second agent library is provided that uses the new
+<tt>java.lang.classfile</tt> API for instrumentation. This library requires at least
+Java 24, but may more likely work with future Java versions it was not tested
+with.</p>
 
 <h2>Usage</h2>
 
@@ -58,9 +63,18 @@ command looks like this:<br />
 ...</tt></p>
 <p>You can give an absolute or relative path to jSSLKeyLog.jar and to your logfile.</p>
 
+<p>If you do not want a message printed to the console, add a <tt>:quiet</tt> option
+after the file name, like this (use <tt>;</tt> instead of <tt>:</tt> on Windows):<br />
+<tt>-javaagent:jSSLKeyLog.jar=logfile.log:quiet</tt><br />
+If you prefer the message to appear on stdout instead of stderr, add
+the <tt>:stdout</tt> option instead.</p>
+
 <p>If you use a double <tt>==</tt> between name of the Jar file and the name of
 your log file, extra verbose comments (containing timestamps and
 local/remote host/ip) will be written before the individual entries.</p>
+
+<p>You can also specify the option <tt>:detailed</tt> in the same manner as <tt>:quiet</tt>
+to activate the extra verbose comments.</p>
 
 <p>The logfile will be written while the program is running. Now just point Wireshark
 to that logfile and happy SSL decoding!</p>
